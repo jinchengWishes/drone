@@ -8,12 +8,7 @@ steps:
   commands:
   - go test
   - go build
-  
-trigger:
-  branch:
-  - master
-platform:
-  os: linux
-  arch: amd64
+
+
 workspace:
   path: /opt/src
