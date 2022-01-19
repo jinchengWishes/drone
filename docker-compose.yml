@@ -1,0 +1,26 @@
+version: '3'
+services:
+  drone-server:
+    restart: always
+    image: drone/drone:2
+    ports:
+      - "2999:80"
+    volumes:
+      - ./data/drone/:/var/lib/drone/
+      - ./data/data/:/data/
+    environment:
+      - DRONE_GITHUB_SERVER=https://github.com
+      - DRONE_GITHUB_CLIENT_ID=6b05dcd7475ff97f7bae
+      - DRONE_GITHUB_CLIENT_SECRET=dfe18cce5094e452c7821bbb69c077b36b341242
+      - DRONE_SERVER_HOST=http://lijinchen.wang:2999
+      - DRONE_SERVER_PROTO=http
+      - DRONE_RPC_SECRET=dfe18cce5094e452c7821bbb69c077b36b341242
+  drone-runner-docker:
+    restart: always
+    image: drone/drone-runner-docker:1
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - DRONE_RPC_PROTO=http
+      - DRONE_RPC_HOST=drone-server
+      - DRONE_RPC_SECRET=dfe18cce5094e452c7821bbb69c077b36b341242
