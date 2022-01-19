@@ -13,7 +13,6 @@ workspace:
 steps:
   - name: fetch
     image: alpine/git
-
     commands:
       - git fetch --tags
 
