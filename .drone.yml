@@ -1,16 +1,18 @@
-workspace:
-  path: /opt/src
-
-
 kind: pipeline
 type: docker
 name: default
 
+trigger:
+  branch:
+    - master
+
+workspace:
+  path: /opt/src
+
 steps:
 - name: test/build
-  image: golang
+  image: golang:1.16.3-alpine3.13
   commands:
   - go test
   - go build
-
 
