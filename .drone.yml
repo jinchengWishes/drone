@@ -1,6 +1,7 @@
 workspace:
   path: /opt/src
 
+
 kind: pipeline
 type: docker
 name: default
