@@ -14,7 +14,7 @@ steps:
 - name: test/build
   image: golang:1.16.3-alpine3.13
   commands:
-  - yum install gcc
+  - apk add git gcc g++ make
   - go test
   - go build
 
