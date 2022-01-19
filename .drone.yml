@@ -3,8 +3,14 @@ type: docker
 name: default
 
 steps:
-- name: build
+- name: backend
   image: golang
   commands:
   - go build
-  - go test ./...
+  - go test
+
+- name: frontend
+  image: node
+  commands:
+  - npm install
+  - npm run test
