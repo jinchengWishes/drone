@@ -4,7 +4,7 @@ name: default
 
 trigger:
   branch:
-    - master
+    - dev
 
 workspace:
   path: /opt/src
