@@ -14,6 +14,7 @@ steps:
     commands:
     - go test
     - go build
+    - go run drone 
   
 # kind: pipeline
 # type: docker
