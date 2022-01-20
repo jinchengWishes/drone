@@ -2,32 +2,24 @@ kind: pipeline
 type: docker
 name: default
 
-trigger:
-  branch:
-    - master
+
 
 
 workspace:
   path: /opt/src
 
-# steps:
-#   - name: fetch
-#     image: alpine/git
-#     commands:
-#       - git fetch --tags
-
-#   - name: test/build
-#     image: golang:1.16.3-alpine3.13
-#     commands:
-#     - apk add git gcc g++ make
-#     - go test
-#     - go build
+steps:
+  - name: test/build
+    image: golang
+    commands:
+    - go test
+    - go build
   
 # kind: pipeline
 # type: docker
 # name: default
-steps:
-- name: busybox
-  image: busybox
-  commands:
-  - env
+# steps:
+# - name: busybox
+#   image: busybox
+#   commands:
+#   - env
