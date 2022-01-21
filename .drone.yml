@@ -17,10 +17,10 @@ steps:
       username:
         from_secret: cocoball
       password:
-        from_secret: ljcloveyou99
-      repo: cocoball/lijincheng:tagname
-      registry: https://hub.docker.com
+        from_secret: ljcloveyou99  
       dockerfile: Dockerfile
+      repo: hub.docker.com/cocoball/lijincheng
+      registry: hub.docker.com
       mirror: https://hub.docker.com
   
 # kind: pipeline
