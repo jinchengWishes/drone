@@ -1,3 +1,3 @@
 FROM golang
 COPY ./drone /opt/drone
-RUN  ./opt/drone
+RUN  cd /opt && ./drone
