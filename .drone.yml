@@ -14,7 +14,6 @@ steps:
     image: plugins/docker
     pull: if-not-exists
     settings:
-      context: app/main/build/docker
       username:
         from_secret: cocoball
       password:
