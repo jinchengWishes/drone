@@ -15,13 +15,13 @@ steps:
     pull: if-not-exists
     settings:
       username:
-        from_secret: cocoball
+        from_secret: harbor_username
       password:
-        from_secret: ljcloveyou99  
+        from_secret: harbor_password
       dockerfile: Dockerfile
-      repo: hub.docker.com/cocoball/lijincheng
-      registry: hub.docker.com
-      mirror: https://hub.docker.com
+      repo: registry.cn-hangzhou.aliyuncs.com/lijincheng/cocoballli
+      registry: registry.cn-hangzhou.aliyuncs.com
+      # mirror: https://hub.docker.com
   
 # kind: pipeline
 # type: docker
