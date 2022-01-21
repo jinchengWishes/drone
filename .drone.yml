@@ -1,20 +1,28 @@
 kind: pipeline
 type: docker
 name: default
-
-
-
-
 workspace:
   path: /opt/src
-
 steps:
-  - name: test/build
+  - name: build
     image: golang
     commands:
     - go test
     - go build
-    - go run drone 
+
+  - name: push
+    image: plugins/docker
+    pull: if-not-exists
+    settings:
+      context: app/main/build/docker
+      username:
+        from_secret: cocoball
+      password:
+        from_secret: ljcloveyou99
+      repo: cocoball/lijincheng:tagname
+      registry: https://hub.docker.com
+      dockerfile: Dockerfile
+      mirror: https://hub.docker.com
   
 # kind: pipeline
 # type: docker
