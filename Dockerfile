@@ -1,4 +1,4 @@
 FROM golang
-COPY drone /opt
-CMD [ "cd /opt && ./drone" ]
+COPY ./drone  /opt/drone/bin/
+CMD ["/opt/drone/bin/drone"]
 EXPOSE 9090
