@@ -21,13 +21,3 @@ steps:
       dockerfile: Dockerfile
       repo: registry.cn-hangzhou.aliyuncs.com/lijincheng/cocoballli
       registry: registry.cn-hangzhou.aliyuncs.com
-      # mirror: https://hub.docker.com
-  
-# kind: pipeline
-# type: docker
-# name: default
-# steps:
-# - name: busybox
-#   image: busybox
-#   commands:
-#   - env
