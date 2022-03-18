@@ -1,46 +1,61 @@
 package main
 
 import (
+	"bytes"
+	"crypto/aes"
+	"crypto/cipher"
+	"encoding/base64"
 	"fmt"
-
-	"github.com/casbin/casbin/v2"
-	"github.com/kotlin2018/adapter"
 )
 
 func main() {
-	opts := &adapter.Adapter{
-		DriverName: "mysql",
-		LinkInfo:   "root:root@tcp(127.0.0.1:3306)/golang",
-		TableName:  "casbin_rule",
+	// 我是master注释
+	x, y := 5, 6
+	for i := 0; i < 10; i++ {
+		fmt.Println(x, "-", y)
+		x, y = y, x+y
 	}
 
-	c := &adapter.CasBinModel{
-		BaseAdapter: opts,
-		ModelPath:   "./rbac_model.conf",
-	}
-
-	e, err := casbin.NewEnforcer(c, opts)
+	key := "Swibk3rUs06eJHNu"
+	var data []byte = []byte(`{"name":"lijincheng","age":12}`)
+	text, err := Encrypt(key, data)
 	if err != nil {
-		fmt.Println("err:", err)
+		fmt.Println(err)
+		return
 	}
-	fmt.Println("ok:", e)
+	// gYDvcj9QWbGIMHrD3RAgNVgi4w3q5UxcnwY0y81RgDFhTriRuMq6COgtRVQokE/C
+	fmt.Println(text)
 
-	// boolean, err := e.Enforce("100", "/v1/post/info", "post")
-	// if err != nil {
-	// 	return
-	// }
-	// if boolean {
-	// 	fmt.Println("有权限")
-	// } else {
-	// 	fmt.Println("没有权限")
-	// }
 }
 
-// http server
+//Encrypt 加密
+func Encrypt(keyStr string, src []byte) (res string, err error) {
+	key := []byte(keyStr)
+	block, err := aes.NewCipher(key)
+	if err != nil {
+		return
+	}
+	src = PKCS5Padding(src, block.BlockSize())
+	dst, err := ECBEncrypt(block, src)
+	if err != nil {
+		return
+	}
+	return base64.StdEncoding.EncodeToString(dst), nil
+}
 
-// func sayHello(w http.ResponseWriter, r *http.Request) {
-// 	fmt.Fprintln(w, map[interface{}]interface{}{
-// 		"name": "jincheng",
-// 		"age":  "20",
-// 	})
-// }
+func PKCS5Padding(src []byte, blockSize int) []byte {
+	padding := blockSize - len(src)%blockSize
+	padtext := bytes.Repeat([]byte{byte(padding)}, padding)
+	return append(src, padtext...)
+}
+
+func ECBEncrypt(block cipher.Block, src []byte) ([]byte, error) {
+	blockSize := block.BlockSize()
+	encryptData := make([]byte, 0, len(src))
+	tmpData := make([]byte, blockSize)
+	for index := 0; index < len(src); index += blockSize {
+		block.Encrypt(tmpData, src[index:index+blockSize])
+		encryptData = append(encryptData, tmpData...)
+	}
+	return encryptData, nil
+}
